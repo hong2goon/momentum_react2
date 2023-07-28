@@ -1,0 +1,15 @@
+.greeting-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 5rem;
+ 
+  p {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  }
+}

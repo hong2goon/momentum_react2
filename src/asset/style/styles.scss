@@ -1,0 +1,43 @@
+body, .App {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0; 
+  overflow: hidden;
+}
+
+.d-flex {
+  display: flex;
+}
+.gap-4 {
+  gap: 0.4rem;
+}
+.gap-8 {
+  gap: 0.8rem;
+}
+.gap-12 {
+  gap: 1.2rem;
+}
+.gap-16 {
+  gap: 1.6rem;
+}
+.gap-20 {
+  gap: 2.0rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  
+  & > * {
+    flex: 1;
+  }
+}
