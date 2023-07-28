@@ -1,9 +1,15 @@
+import Clock from './Clock';
 import '../asset/style/greeting.scss';
 
-function Greeting() {
+interface Props {
+  viewClk: boolean;
+  setMeridiem: boolean;
+  setSecs: boolean;
+}
+const Greeting = ({viewClk, setMeridiem, setSecs}: Props) => {
   return (
     <div className="greeting-wrap">
-      <p>greeting</p>
+      {viewClk ? <Clock chkMeridiem={setMeridiem} chkSecs={setSecs} /> : null}
     </div>
   );
 }

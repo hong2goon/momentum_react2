@@ -26,13 +26,16 @@ function App() {
   const chkHandler = (value: number) => {
     setChkedBg(bgArr[value]);
   }
-  
+  const [viewClock, setViewClock] = useState(true);
+  const [meridiem, setMeridiem] = useState(true);
+  const [secs, setsecs] = useState(true);
+
   return (
     <div className="App">
       <div className="wrapper">
-        <Greeting />
-        <Settings bgs={bgArr} chkBg={randomIdx} chkImg={chkHandler} />
+        <Greeting viewClk={viewClock} setMeridiem={meridiem} setSecs={secs} />
       </div>
+      <Settings bgs={bgArr} chkBg={randomIdx} chkImg={chkHandler} />
       <Background $url={chkedBg} />
     </div>
   );
