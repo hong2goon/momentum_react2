@@ -28,14 +28,35 @@ function App() {
   }
   const [viewClock, setViewClock] = useState(true);
   const [meridiem, setMeridiem] = useState(true);
-  const [secs, setsecs] = useState(true);
+  const [secs, setSecs] = useState(true);
+  const switchClk = (value: boolean) => {
+    setViewClock(value);
+  }
+  const switchMdm = (value: boolean) => {
+    setMeridiem(value);
+  }
+  const switchSec = (value: boolean) => {
+    setSecs(value);
+  }
+
+  const [useName, setUseName] = useState('');
 
   return (
     <div className="App">
       <div className="wrapper">
-        <Greeting viewClk={viewClock} setMeridiem={meridiem} setSecs={secs} />
+        <Greeting viewClk={viewClock} setMeridiem={meridiem} setSecs={secs} name={useName} />
       </div>
-      <Settings bgs={bgArr} chkBg={randomIdx} chkImg={chkHandler} />
+      <Settings 
+        chkClockSwt={viewClock}
+        showClockHandler={switchClk}
+        bgs={bgArr} 
+        chkBg={randomIdx} 
+        chkImg={chkHandler} 
+        chkMdmSwt={meridiem}
+        showMdmHandler={switchMdm}
+        chkSecSwt={secs}
+        showSecHandler={switchSec}
+      />
       <Background $url={chkedBg} />
     </div>
   );

@@ -1,14 +1,31 @@
 import {useState} from 'react';
+import Switch from '../components/Switch';
 import BgImgRadio from '../components/BgImgRadio';
 import '../asset/style/settings.scss';
 
 interface Props {
+  chkClockSwt: boolean;
+  showClockHandler: Function;
   bgs: Array<string>;
   chkBg: number;
   chkImg: Function;
+  chkMdmSwt: boolean;
+  chkSecSwt: boolean;
+  showMdmHandler: Function;
+  showSecHandler: Function;
 }
 
-const SettingApp = ({bgs, chkBg, chkImg}: Props) => {
+const SettingApp = ({
+  chkClockSwt, 
+  showClockHandler,
+  bgs, 
+  chkBg, 
+  chkImg, 
+  chkMdmSwt, 
+  showMdmHandler, 
+  chkSecSwt, 
+  showSecHandler
+}: Props) => {
   const [settingView, setSettingView] = useState<string>('setting');
   const ToggleClass = (e:React.MouseEvent<HTMLButtonElement>) => {
     const btn = e.currentTarget;
@@ -21,8 +38,14 @@ const SettingApp = ({bgs, chkBg, chkImg}: Props) => {
     chkImg(value);
   }
 
-  const chkChangeHandler = () => {
-    console.log(11);
+  const chkChangeHandler = (value: string, checked: boolean) => {
+    if(value === 'clock') {
+      showClockHandler(checked);
+    } else if(value === 'meridiem') {
+      showMdmHandler(checked);
+    } else if(value === 'seconds') {
+      showSecHandler(checked);
+    }
   }
 
   const handleLayer = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -48,7 +71,13 @@ const SettingApp = ({bgs, chkBg, chkImg}: Props) => {
               <h2 className="set-tit">Setting</h2>
               <span className="set-desc">Cumstom my board</span>
               <form>
-                <h3 className="set-sub-tit">View Components</h3>
+                <h3 className="set-sub-tit">View Complications</h3>
+                <ul className="set-list">
+                  <li>
+                    <strong className="label">Clock</strong>
+                    <Switch value="clock" children="clock" defaultChecked={chkClockSwt} onChange={chkChangeHandler} />
+                  </li>
+                </ul>
               </form>
             </div>
             <div className={settingView === 'background' ? 'set-cont background act' : 'set-cont background'}>
@@ -70,22 +99,12 @@ const SettingApp = ({bgs, chkBg, chkImg}: Props) => {
                 <h3 className="set-sub-tit">Options</h3>
                 <ul className="set-list">
                   <li>
-                    <strong className="label">Meridiem (12/24 hour)</strong>
-                    <div className="switch">
-                      <label>
-                        <input type="checkbox" className="toggle-switch" onChange={chkChangeHandler} />
-                        <span>12/24 hour</span>
-                      </label>
-                    </div>
+                    <strong className="label">Meridiem<br />(12/24 hour)</strong>
+                    <Switch value="meridiem" children="12/24 hour" defaultChecked={chkMdmSwt} onChange={chkChangeHandler} />
                   </li>
                   <li>
                     <strong className="label">show seconds</strong>
-                    <div className="switch">
-                      <label>
-                        <input type="checkbox" onChange={chkChangeHandler} />
-                        <span>초</span>
-                      </label>
-                    </div>
+                    <Switch value="seconds" children="초" defaultChecked={chkSecSwt} onChange={chkChangeHandler} />
                   </li>
                 </ul>
               </form>
