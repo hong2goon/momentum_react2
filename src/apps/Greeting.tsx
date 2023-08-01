@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Clock from './Clock';
+import editIcon from '../asset/images/icon/edit.svg';
 import '../asset/style/greeting.scss';
 
 interface Props {
@@ -15,7 +16,7 @@ const InputName = styled.div`
   position: relative;
   
   input {
-    padding: 4px 8px;
+    padding: 0.25rem 0.5rem;
     color: #fff;
     background: transparent;
     border: none;
@@ -24,12 +25,12 @@ const InputName = styled.div`
   &.input-name {
     input {
       width: 100%;
-      max-width: 600px;
+      max-width: 37.5rem;
       
-      font-size: 54px;
-      line-height: 54px;
+      font-size: 3.375rem;
+      line-height: 3.375rem;
       text-align: center;
-      border-bottom: 2px solid #fff;
+      border-bottom: 0.125rem solid #fff;
       border-radius: 0;
       outline: none;
 
@@ -45,13 +46,35 @@ const GreetMsg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px 8px;
-  font-size: 54px;
-  line-height: 64px;
+  padding: 0.25rem 0.5rem;
+  font-size: 3.375rem;
+  line-height: 4rem;
   color: #fff;
   text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+
+  span:nth-of-type(2) {
+    margin-left: 0.5rem;
+  }
 `;
 
+const EditBtn = styled.button`
+  display: inline-block;
+  margin: 0.5rem 0 0 1rem;
+  width: 3rem;
+  height: 3rem;
+  text-indent: -999rem;
+  background: url(${editIcon}) 50% 100% no-repeat;
+  background-size: 2.25rem;
+  border: none;
+  outline: none;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 const Greeting = ({viewClk, setMeridiem, setSecs, name, getName}: Props) => {
   const [inpName, setInpName] = useState(name);
@@ -67,6 +90,31 @@ const Greeting = ({viewClk, setMeridiem, setSecs, name, getName}: Props) => {
   const toggleChgMode = (e:React.MouseEvent<HTMLButtonElement>) => {
     setInpMode('edit');
   }
+
+  const [greeting, setGreeting] = useState<string>('');
+  
+  useEffect(() => {
+    const curr = setInterval(() => {
+      setTimeout(() => {
+        const curHour = new Date().getHours();
+        if(curHour >= 21 || curHour < 6) {
+          setGreeting('Good Night');
+        } else {
+          if(curHour > 18) {
+            setGreeting('Good Evening');
+          } else if(curHour >= 12) {
+            setGreeting('Good Afternoon');
+          } else {
+            setGreeting('Good Morning');
+          }
+        }
+      }, 1000);
+    });
+    return (() => {
+      clearInterval(curr);
+    });
+  }, []);
+
   return (
     <div className="greeting-wrap">
       {viewClk ? <Clock chkMeridiem={setMeridiem} chkSecs={setSecs} /> : null}
@@ -77,8 +125,8 @@ const Greeting = ({viewClk, setMeridiem, setSecs, name, getName}: Props) => {
           </InputName>
           : 
           <GreetMsg className="greeting-msg">
-            <span>Good Morning</span>, <span>{name}</span>
-            <button type="button" onClick={toggleChgMode}>수정</button>
+            <span>{greeting}</span>, <span>{name}</span>
+            <EditBtn type="button" onClick={toggleChgMode}>수정</EditBtn>
           </GreetMsg>
         }
       </form>
