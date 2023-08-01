@@ -40,11 +40,13 @@ function App() {
   }
 
   const [useName, setUseName] = useState('');
-
+  const getNameHandler = (value: string) => {
+    setUseName(value);
+  }
   return (
     <div className="App">
       <div className="wrapper">
-        <Greeting viewClk={viewClock} setMeridiem={meridiem} setSecs={secs} name={useName} />
+        <Greeting viewClk={viewClock} setMeridiem={meridiem} setSecs={secs} name={useName} getName={getNameHandler} />
       </div>
       <Settings 
         chkClockSwt={viewClock}
