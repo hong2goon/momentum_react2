@@ -8,6 +8,7 @@ interface Props {
   viewClk: boolean;
   setMeridiem: boolean;
   setSecs: boolean;
+  viewGreet: boolean;
   name: string;
   getName: Function;
 }
@@ -76,7 +77,7 @@ const EditBtn = styled.button`
   }
 `;
 
-const Greeting = ({viewClk, setMeridiem, setSecs, name, getName}: Props) => {
+const Greeting = ({viewClk, setMeridiem, setSecs, viewGreet, name, getName}: Props) => {
   const [inpName, setInpName] = useState(name);
   const [inpMode, setInpMode] = useState('input');
   const getInpVal = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -118,18 +119,21 @@ const Greeting = ({viewClk, setMeridiem, setSecs, name, getName}: Props) => {
   return (
     <div className="greeting-wrap">
       {viewClk ? <Clock chkMeridiem={setMeridiem} chkSecs={setSecs} /> : null}
-      <form className="form-name" onSubmit={submitName}>
-        {name === '' || inpMode === 'edit' ?
-          <InputName className="input-name">
-            <input type="text" value={inpName} placeholder="What's your name?" onChange={getInpVal} />
-          </InputName>
-          : 
-          <GreetMsg className="greeting-msg">
-            <span>{greeting}</span>, <span>{name}</span>
-            <EditBtn type="button" onClick={toggleChgMode}>수정</EditBtn>
-          </GreetMsg>
+      {viewGreet ? 
+        <form className="form-name" onSubmit={submitName}>
+          {name === '' || inpMode === 'edit' ?
+            <InputName className="input-name">
+              <input type="text" value={inpName} placeholder="What's your name?" onChange={getInpVal} />
+            </InputName>
+            : 
+            <GreetMsg className="greeting-msg">
+              <span>{greeting}</span>, <span>{name}</span>
+              <EditBtn type="button" onClick={toggleChgMode}>수정</EditBtn>
+            </GreetMsg>
+          }
+        </form>
+        : null
         }
-      </form>
     </div>
   );
 }

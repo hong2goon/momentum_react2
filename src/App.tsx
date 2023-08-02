@@ -1,6 +1,7 @@
-import React,{ useState } from 'react';
+import { useState } from 'react';
 import Settings from './apps/Settings';
 import Greeting from './apps/Greeting';
+import Weather from './apps/Weather';
 import bgImg1 from './asset/images/background/1.jpg';
 import bgImg2 from './asset/images/background/2.jpg';
 import bgImg3 from './asset/images/background/3.jpg';
@@ -39,14 +40,35 @@ function App() {
     setSecs(value);
   }
 
+  const [viewGreeting, setViewGreeting] = useState(true);
+  const switchGreet = (value: boolean) => {
+    setViewGreeting(value);
+  }
   const [useName, setUseName] = useState('');
   const getNameHandler = (value: string) => {
     setUseName(value);
   }
+
+  const [viewWeather, setViewWeather] = useState(true);
+  const [weathersInfo, setWeathersInfo] = useState<object>([]);
+  const switchWeather = (value: boolean) => {
+    setViewWeather(value);
+  }
+  const getWeatherInfo = (value: object) => {
+    setWeathersInfo(value);
+  } 
   return (
     <div className="App">
       <div className="wrapper">
-        <Greeting viewClk={viewClock} setMeridiem={meridiem} setSecs={secs} name={useName} getName={getNameHandler} />
+        <Greeting
+          viewClk={viewClock}
+          setMeridiem={meridiem}
+          setSecs={secs}
+          viewGreet={viewGreeting}
+          name={useName}
+          getName={getNameHandler}
+        />
+        <Weather viewWeather={viewWeather} getWeatherInfo={getWeatherInfo} />
       </div>
       <Settings 
         chkClockSwt={viewClock}
@@ -58,6 +80,11 @@ function App() {
         showMdmHandler={switchMdm}
         chkSecSwt={secs}
         showSecHandler={switchSec}
+        chkGreetSwt={viewGreeting}
+        showGreetHandler={switchGreet}
+        chkWeatherSwt={viewWeather}
+        showWeatherHandler={switchWeather}
+        weathers={weathersInfo}
       />
       <Background $url={chkedBg} />
     </div>
