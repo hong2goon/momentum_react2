@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Settings from './apps/Settings';
 import Greeting from './apps/Greeting';
 import Weather from './apps/Weather';
+import Todo from './apps/Todo';
 import bgImg1 from './asset/images/background/1.jpg';
 import bgImg2 from './asset/images/background/2.jpg';
 import bgImg3 from './asset/images/background/3.jpg';
@@ -69,6 +70,7 @@ function App() {
           getName={getNameHandler}
         />
         <Weather viewWeather={viewWeather} getWeatherInfo={getWeatherInfo} />
+        <Todo />
       </div>
       <Settings 
         chkClockSwt={viewClock}

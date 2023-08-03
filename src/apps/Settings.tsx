@@ -125,7 +125,7 @@ const SettingApp = ({
     setSettingView(target);
   }
 
-  console.log(weathers);
+  // console.log(weathers);
   return (
     <div className="setting-wrap">
       <div className="setting-container">
