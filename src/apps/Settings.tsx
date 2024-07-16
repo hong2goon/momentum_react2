@@ -22,7 +22,7 @@ interface Props {
 }
 
 const WeatherInfoBox = styled.ul`
-  margin: 1.5rem 0 0.25rem;
+  margin: 2.4rem 0 0.4rem;
   padding: 0;
   list-style: none;
 
@@ -32,21 +32,21 @@ const WeatherInfoBox = styled.ul`
     align-items: center;
 
     span {
-      font-size: 0.625rem;
+      font-size: 1rem;
       color: rgba(255, 255, 255, .6);
       opacity: 1;
 
       strong {
         display: block;
-        margin-bottom: 0.25rem;
-        font-size: 0.875rem;
+        margin-bottom: 0.4rem;
+        font-size: 1.4rem;
         font-weight: 400;
         color: rgba(255, 255, 255, 1);
         opacity: 1;
       }
 
       &.value {
-        font-size: 1rem;
+        font-size: 1.6rem;
         color: rgba(255, 255, 255, 1);
 
         span {
@@ -55,13 +55,13 @@ const WeatherInfoBox = styled.ul`
           color: inherit;
 
           & + span {
-            margin-left: 0.5rem;
-            font-size: 0.75rem;
+            margin-left: 0.8rem;
+            font-size: 1.2rem;
 
             &.degree {
-              margin-top: 0.063rem;
-              margin-left: 0.25rem;
-              font-size: 0.875rem;
+              margin-top: 0.1rem;
+              margin-left: 0.4rem;
+              font-size: 1.4rem;
               vertical-align: top;
             }
           }
@@ -97,7 +97,21 @@ const SettingApp = ({
   const ToggleClass = (e:React.MouseEvent<HTMLButtonElement>) => {
     const btn = e.currentTarget;
     const settingWrap = btn.closest('.setting-wrap');
-    settingWrap?.classList.contains('act') ? settingWrap?.classList.remove('act') : settingWrap?.classList.add('act');
+    const todoWrap = document.querySelector('.Todo-inp-box') as HTMLDivElement;
+    if(settingWrap?.classList.contains('act')) {
+      settingWrap?.classList.remove('act');
+      setTimeout(() => {
+        settingWrap?.classList.remove('block');    
+      }, 1000);
+    } else {
+      settingWrap?.classList.add('block');
+      setTimeout(() => {
+        settingWrap?.classList.add('act');
+      }, 100);
+    }
+    if(todoWrap.classList.contains('act')) {
+      todoWrap.classList.remove('act')
+    }
     setSettingView('setting');
   }
 

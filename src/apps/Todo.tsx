@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import TodoIcon from '../asset/images/icon/checklist.svg';
-import TodoList from './TodoList';
+import TodoItem from './TodoItem';
 const TodoInpWrap = styled.div<{$icon: string}>`
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 1rem;
+  margin: 1.6rem;
   color: #fff;
   text-align: right;
-  z-index: 9;
+  z-index: 101;
 
   .toggle-todo {
     position: relative;
-    padding-left: 2rem;
-    font-size: 1.25rem;
+    padding-left: 3.2rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #fff;
-    line-height: 1.75rem;
+    line-height: 2.8rem;
     background: transparent;
     border: none;
     outline: none;
@@ -31,10 +31,10 @@ const TodoInpWrap = styled.div<{$icon: string}>`
       top: 0;
       left: 0;
       display: inline-block;
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 2.8rem;
+      height: 2.8rem;
       background: url(${props => props.$icon}) 50% 50% no-repeat;
-      background-size: auto 1.75rem;
+      background-size: auto 2.8rem;
     }
 
     &:hover {
@@ -44,13 +44,13 @@ const TodoInpWrap = styled.div<{$icon: string}>`
 
   .Todo-inp-box {
     position: absolute;
-    bottom: 2.75rem;
+    bottom: 4.4rem;
     right: 0;
-    width: 300px;
-    padding: 1rem;
+    width: 30rem;
+    padding: 1.6rem;
     color: #fff;
     background: rgba(0, 0, 0, .8);
-    border-radius: 0.5rem;
+    border-radius: 0.8rem;
     opacity: 0;
     transform: translateX(150%);
     transition: all 0.5s ease-in-out;
@@ -62,8 +62,8 @@ const TodoInpWrap = styled.div<{$icon: string}>`
 
     h2 {
       display: block;
-      margin: 0.25rem 0.625rem 1rem;
-      font-size: 1.125rem;
+      margin: 0.4rem 1rem 1.6rem;
+      font-size: 1.8rem;
       font-weight: normal;
       color: rgba(255, 255, 255, 0.7);
       text-align: center;
@@ -71,15 +71,15 @@ const TodoInpWrap = styled.div<{$icon: string}>`
 
     .todo-form {
       input {
-        margin-bottom: 0.75rem;
-        padding: 0.25rem;
-        font-size: 1rem;
-        line-height: 1.875rem;
+        margin-bottom: 1.2rem;
+        padding: 0.4rem;
+        font-size: 1.6rem;
+        line-height: 3rem;
         width: 100%;
         color: #fff;
         background: #000;
         border: none;
-        border-bottom: 0.063rem solid rgba(255, 255, 255, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
         border-radius: 0;
         outline: none;
         box-sizing: border-box;
@@ -94,18 +94,41 @@ const TodoInpWrap = styled.div<{$icon: string}>`
 
 const TodoListWrap = styled.div`
   position: relative;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 37.5rem;
+  display: flex;
+  justify-content: center;
+  padding:0 1.2rem;
+
+  ul {
+    width:100%;
+    max-width:58rem;
+    margin: 0;
+    padding: 0;
+    background:rgba(0, 0, 0, 0.3);
+    border-radius: 0.4rem;
+    list-style: none;
+  }
 `;
+
+interface TodoList {
+  id: number;
+  chk: boolean; 
+  value: string;
+}
 
 const Todo = () => {
   const [todoValue, setTodoValue] = useState<string>('');
-  const [todos, setTodos] = useState<string[]>([]);
+  const [todos, setTodos] = useState<TodoList[]>([]);
   const toggleHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const todoInpBox = e.currentTarget.nextElementSibling as HTMLElement;
+    const setWrap = document.querySelector('.setting-wrap') as HTMLDivElement;
     todoInpBox.classList.contains('act') ? todoInpBox.classList.remove('act') : todoInpBox.classList.add('act');
+    if(setWrap.classList.contains('act')) {
+      setWrap.classList.remove('act');
+      setTimeout(() => {
+        setWrap.classList.remove('block');
+      }, 1000);
+    }
   }
 
   const onChangeTodo = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -116,18 +139,38 @@ const Todo = () => {
     const value = todoValue;
     const inp = e.currentTarget.querySelector('input') as HTMLInputElement;
     const inpVal = inp.value;
-    onInsert(value);
+    
+    const newTodos: TodoList = {
+      id: todos.length + 1,
+      chk: false,
+      value: value
+    };
+    setTodos([...todos, newTodos]);
     inpReset(inpVal); //value 초기화
     e.preventDefault(); //기본이벤트(새로고침) 방지
   }
 
-  const onInsert = (value: string) => {
-    setTodos(todos.concat(value))
-  }
   const inpReset = (inp: string) => {
     const todoInp = document.querySelector('.todo-form > input') as HTMLInputElement;
     todoInp.value = '';
     setTodoValue('');
+  }
+
+  const todoChk = (id: number, checked: boolean, value: string) => {
+    const chkTodos: TodoList = {
+      id: id,
+      chk: checked,
+      value: value
+    };
+
+    const updateTodos = todos.map((item) => {
+      if(item.id === chkTodos.id) {
+        return chkTodos;
+      } else {
+        return item;
+      }
+    })
+    setTodos(updateTodos);
   }
 
   return (
@@ -143,7 +186,11 @@ const Todo = () => {
       </TodoInpWrap>
 
       <TodoListWrap className='todo-list'>
-        <TodoList todos={todos} />
+        <ul>
+          {todos.map((item) => (
+            <TodoItem id={item.id} checked={item.chk} text={item.value} key={item.id} onChange={todoChk} />
+          ))}
+        </ul>
       </TodoListWrap>
     </div>
   );

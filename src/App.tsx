@@ -70,24 +70,26 @@ function App() {
           getName={getNameHandler}
         />
         <Weather viewWeather={viewWeather} getWeatherInfo={getWeatherInfo} />
-        <Todo />
+        <div>
+          <Settings 
+            chkClockSwt={viewClock}
+            showClockHandler={switchClk}
+            bgs={bgArr} 
+            chkBg={randomIdx} 
+            chkImg={chkHandler} 
+            chkMdmSwt={meridiem}
+            showMdmHandler={switchMdm}
+            chkSecSwt={secs}
+            showSecHandler={switchSec}
+            chkGreetSwt={viewGreeting}
+            showGreetHandler={switchGreet}
+            chkWeatherSwt={viewWeather}
+            showWeatherHandler={switchWeather}
+            weathers={weathersInfo}
+          />
+          <Todo />
+        </div>
       </div>
-      <Settings 
-        chkClockSwt={viewClock}
-        showClockHandler={switchClk}
-        bgs={bgArr} 
-        chkBg={randomIdx} 
-        chkImg={chkHandler} 
-        chkMdmSwt={meridiem}
-        showMdmHandler={switchMdm}
-        chkSecSwt={secs}
-        showSecHandler={switchSec}
-        chkGreetSwt={viewGreeting}
-        showGreetHandler={switchGreet}
-        chkWeatherSwt={viewWeather}
-        showWeatherHandler={switchWeather}
-        weathers={weathersInfo}
-      />
       <Background $url={chkedBg} />
     </div>
   );

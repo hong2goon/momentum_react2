@@ -1,16 +1,17 @@
 .setting-wrap {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 2;
 
   .setting-container {
     position: relative;
+    display: none;
     margin: 0 1.6rem;
     z-index: 1;
     opacity: 0;
     transform: translateY(20.0rem);
-    transition: all 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 
     .setting-panel {
       position: absolute;
@@ -73,7 +74,7 @@
 
         .set-cont {
           display: none;
-          padding: 1rem 2rem;
+          padding: 0 2rem 1rem;
 
           &.act {
             display: block;
@@ -145,6 +146,12 @@
     }
   }
   
+  &.block {
+    .setting-container {
+      display: block;
+    }
+  }
+
   &.act {
     .setting-container {
       transform: translateY(0);
@@ -184,8 +191,17 @@
         flex-direction: column;
 
         .nav-wrap {
+            margin:0 1rem 2rem;
+            border-right: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
           .nav-menu {
+            flex-direction: row;
+            width: 100%;
+
             li {
+              padding:0.6rem 1rem;
+              
                 a {
                   font-size: 1.1rem;
                 }
