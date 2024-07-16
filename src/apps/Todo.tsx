@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import TodoIcon from '../asset/images/icon/checklist.svg';
-
+import TodoList from './TodoList';
 const TodoInpWrap = styled.div<{$icon: string}>`
   position: absolute;
   bottom: 0;
@@ -92,15 +92,20 @@ const TodoInpWrap = styled.div<{$icon: string}>`
   }
 `;
 
+const TodoListWrap = styled.div`
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 37.5rem;
+`;
+
 const Todo = () => {
-  const [todoValue, setTodoValue] = useState('');
+  const [todoValue, setTodoValue] = useState<string>('');
+  const [todos, setTodos] = useState<string[]>([]);
   const toggleHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const todoInpBox = e.currentTarget.nextElementSibling as HTMLElement;
-    const todoInpForm = todoInpBox.querySelector('form') as HTMLElement;
-    const todoFormCN = todoInpForm.classList.value;
     todoInpBox.classList.contains('act') ? todoInpBox.classList.remove('act') : todoInpBox.classList.add('act');
-    inpReset(todoFormCN);
   }
 
   const onChangeTodo = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -108,13 +113,20 @@ const Todo = () => {
   }
 
   const onSubmitTodo = (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    //inpReset();
-    console.log(todoValue);
+    const value = todoValue;
+    const inp = e.currentTarget.querySelector('input') as HTMLInputElement;
+    const inpVal = inp.value;
+    onInsert(value);
+    inpReset(inpVal); //value 초기화
+    e.preventDefault(); //기본이벤트(새로고침) 방지
   }
 
+  const onInsert = (value: string) => {
+    setTodos(todos.concat(value))
+  }
   const inpReset = (inp: string) => {
-    console.log(inp);
+    const todoInp = document.querySelector('.todo-form > input') as HTMLInputElement;
+    todoInp.value = '';
     setTodoValue('');
   }
 
@@ -125,10 +137,14 @@ const Todo = () => {
         <div className="Todo-inp-box">
           <h2>Add a todo to get start</h2>
           <form className="todo-form" onSubmit={onSubmitTodo}>
-            <input type="text" placeholder="Enter a to-do." onChange={onChangeTodo} />
+            <input type="text" placeholder="Enter a to-do." value={todoValue} onChange={onChangeTodo} />
           </form>
         </div>
       </TodoInpWrap>
+
+      <TodoListWrap className='todo-list'>
+        <TodoList todos={todos} />
+      </TodoListWrap>
     </div>
   );
 }

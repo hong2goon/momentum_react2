@@ -6,7 +6,7 @@
 
   .setting-container {
     position: relative;
-    margin: 0 1rem;
+    margin: 0 1.6rem;
     z-index: 1;
     opacity: 0;
     transform: translateY(20.0rem);
@@ -17,39 +17,40 @@
       bottom: 0;
       left: 0;
       display: flex;
-      max-width: 500px;
-      padding: 1rem 0;
+      width: calc(100vw - 2.4rem);
+      max-width: 50rem;
+      padding: 2.5rem 0;
       color: #fff;
       background: rgba(0, 0, 0, .8);
-      border-radius: 0.5rem;
+      border-radius: 0.8rem;
 
       .nav-wrap {
         display: flex;
         flex-direction: column;
-        border-right: 0.063rem solid rgba(255, 255, 255, 0.12);
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
 
         .nav-menu {
           position: relative;
           display: flex;
           flex-direction: column;
           flex: 1;
-          width: 9.375rem;
+          width: 14.4rem;
           margin: 0;
-          padding: 0.625rem 0;
+          padding: 0.2rem 0;
           box-sizing: border-box;
           overflow: hidden;
 
           li {
             display: block;
-            padding: 0.375rem 1.25rem;
+            padding: 0.6rem 2rem;
 
             a {
-              font-size: 1.125rem;
+              font-size: 1.8rem;
               font-weight: 400;
               color: #fff;
               text-decoration: none;
               opacity: 0.6;
-              transition: all 0.5s ease-in-out;
+              transition: opacity 0.5s ease-in-out;
 
               &:hover {
                 opacity: 0.8;
@@ -72,8 +73,7 @@
 
         .set-cont {
           display: none;
-          width: 20rem;
-          padding: 0.625rem 1.25rem;
+          padding: 1rem 2rem;
 
           &.act {
             display: block;
@@ -81,18 +81,18 @@
 
           .set-tit {
             display: block;
-            margin: 0 0 0.25rem;
-            font-size: 1.5rem;
+            margin: 0 0 0.4rem;
+            font-size: 2.4rem;
             font-weight: 500;
           }
           .set-desc {
-            font-size: 0.813rem;
+            font-size: 1.3rem;
             opacity: 0.75;
           }
           .set-sub-tit {
             display: block;
-            margin: 1.5rem 0 0.25rem;
-            font-size: 1.125rem;
+            margin: 2.4rem 0 4rem;
+            font-size: 1.8rem;
             font-weight: 500;
           }
           .set-list {
@@ -105,9 +105,9 @@
               justify-content: space-between;
               align-items: center;
               margin: 0;
-              padding: 0.75rem 0.375rem;
-              border-top: 0.063rem solid rgba(255, 255, 255, 0.13);
-              border-bottom: 0.063rem solid rgb(0, 0, 0);
+              padding: 1.2rem 0.6rem;
+              border-top: 1px solid rgba(255, 255, 255, 0.13);
+              border-bottom: 1px solid rgb(0, 0, 0);
 
               &:first-child {
                 border-top: none;
@@ -117,7 +117,7 @@
               }
 
               .label {
-                font-size: 0.875rem;
+                font-size: 1.4rem;
                 font-weight: 400;
               }
             }
@@ -129,12 +129,12 @@
   .btn-setting {
     position: relative;
     display: inline-block;
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 6rem;
+    height: 6rem;
     padding: 0;
     text-indent: -999rem;
     background: url('../images/icon/settings.svg') 50% 50% no-repeat;
-    background-size: 1.75rem;
+    background-size: 3.6rem;
     border: none;
     opacity: 0.7;
     z-index: 2;
@@ -155,4 +155,44 @@
     }
     
  }
+}
+
+@media (max-width: 532px) and (min-width: 361px) {
+  .setting-wrap {
+    .setting-container {
+      .setting-panel {
+        .nav-wrap {
+          .nav-menu {
+            width: calc(25vw);
+
+            li {
+                a {
+                  font-size: calc(3.2vw);
+                }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .setting-wrap {
+    .setting-container {
+      .setting-panel {
+        flex-direction: column;
+
+        .nav-wrap {
+          .nav-menu {
+            li {
+                a {
+                  font-size: 1.1rem;
+                }
+            }
+          }
+        }
+      }
+    }
+  }
 }

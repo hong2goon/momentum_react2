@@ -15,39 +15,39 @@ const WeatherWrap = styled.div<{$weatherIco: string}>`
   position: absolute;
   top: 0;
   right: 0;
-  padding: 0.75rem 1.25rem;
+  padding: 1.2rem 2rem;
   color: #fff;
   text-align: right;
   z-index: 9;
 
   .metric-state {
     display: flex;
-    height: 2.375rem;
+    height: 3.8rem;
     white-space: nowrap;
 
     .ico-weather {
       display: inline-block;
-      width: 2.375rem;
-      height: 2.375rem;
-      margin-right: 0.375rem;
+      width: 3.8rem;
+      height: 3.8rem;
+      margin-right: 0.6rem;
       text-align: left;
       text-indent: -999rem;
       background-image: url(${(props) => props.$weatherIco});
       background-position: 50% 0;
       background-repeat: no-repeat;
-      background-size: 3.125rem auto;
+      background-size: 5rem auto;
       overflow: hidden;
     }
 
     .metric-stat-num {
       margin: 0;
       padding: 0;
-      font-size: 1.75rem;
+      font-size: 2.8rem;
       text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, .3);
     } 
     .degree {
-      margin: 0.25rem 0 0 0.25rem;
-      font-size: 1rem;
+      margin: 0.4rem 0 0 0.4rem;
+      font-size: 1.6rem;
       vertical-align: top;
       text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, .3);
     }
@@ -56,8 +56,8 @@ const WeatherWrap = styled.div<{$weatherIco: string}>`
   .location {
     display: inline-block;
     margin: 0;
-    padding: 0 0 0.25rem;
-    font-size: 0.813rem;
+    padding: 0 0 0.4rem;
+    font-size: 1.3rem;
     vertical-align: top;
     word-break: break-all;
     text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, .3);
