@@ -98,47 +98,23 @@ const Item = styled.li`
   }
 `;
 
-// const TodoList = ({todos}: Props) => {
-
-//   const checkHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
-//     console.log(e.target.checked, todos)
-//   }
-
-//   return (
-//     <List>
-//       {todos.map((todoItem, index) => {
-//         let idx: number = index;
-//         let strIdx = "chk" + idx as unknown as string;
-//         return (
-//           <li className="item" key={index}>
-//             <div className="chk">
-//               <input type="checkbox" id={strIdx} onChange={checkHandler}/>
-//               <label className="chkbox" htmlFor={strIdx} />
-//             </div>
-//             <p>{todoItem}</p>
-//             <div className="btn">
-//               <button type="button" className="btn-del">Del</button>
-//             </div>
-//           </li>
-//         );
-//       })}
-//     </List>
-    
-//   );
-// }
-
 interface Props {
   id: number,
   checked: boolean,
   text: string,
-  onChange: Function
+  onChange: Function,
+  onClick: Function
 }
 
-const TodoItem = ({id, checked, text, onChange}: Props) => {
+const TodoItem = ({id, checked, text, onChange, onClick}: Props) => {
   const checkHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
     onChange(id, e.target.checked, text);
     e.target.checked ? e.target.closest('li')?.classList.add('complete') : e.target.closest('li')?.classList.remove('complete');
   }
+  const delHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
+    onClick(id);
+  }
+
   let strIdx = "chk" + id as unknown as string;
 
   return (
@@ -149,7 +125,7 @@ const TodoItem = ({id, checked, text, onChange}: Props) => {
       </div>
       <p>{text}</p>
       <div className="btn">
-        <button type="button" className="btn-del">Del</button>
+        <button type="button" className="btn-del" onClick={delHandler}>Del</button>
       </div>
     </Item>
   );

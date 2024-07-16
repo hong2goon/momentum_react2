@@ -173,6 +173,16 @@ const Todo = () => {
     setTodos(updateTodos);
   }
 
+  const todoDel = (id: number) => {
+    let delItem: TodoList[] = todos.filter((item) => item.id !== id);
+    delItem.map((item, index) => {
+      if(item.id > index + 1) {
+        return item.id = item.id - 1;
+      }
+    })
+    setTodos(delItem);
+  }
+
   return (
     <div className="todo-wrap">
       <TodoInpWrap $icon={TodoIcon}>
@@ -188,7 +198,7 @@ const Todo = () => {
       <TodoListWrap className='todo-list'>
         <ul>
           {todos.map((item) => (
-            <TodoItem id={item.id} checked={item.chk} text={item.value} key={item.id} onChange={todoChk} />
+            <TodoItem id={item.id} checked={item.chk} text={item.value} key={item.id} onChange={todoChk} onClick={todoDel} />
           ))}
         </ul>
       </TodoListWrap>
