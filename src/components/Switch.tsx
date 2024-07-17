@@ -67,10 +67,13 @@ function Switch({value, defaultChecked, children, onChange}: RadioProps) {
   const switchHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value, e.target.checked);
   }
+
+  let strIdx = "swt" + value as unknown as string;
+
   return (
     <ToggleSwitch className="switch">
       <label>
-        <input type="checkbox" value={value} checked={defaultChecked} onChange={switchHandler} />
+        <input type="checkbox" id={strIdx} value={value} checked={defaultChecked} onChange={switchHandler} />
         <span>{children}</span>
       </label>
     </ToggleSwitch>

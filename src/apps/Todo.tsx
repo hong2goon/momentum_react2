@@ -178,6 +178,8 @@ const Todo = () => {
     delItem.map((item, index) => {
       if(item.id > index + 1) {
         return item.id = item.id - 1;
+      } else {
+        return false
       }
     })
     setTodos(delItem);
@@ -190,7 +192,7 @@ const Todo = () => {
         <div className="Todo-inp-box">
           <h2>Add a todo to get start</h2>
           <form className="todo-form" onSubmit={onSubmitTodo}>
-            <input type="text" placeholder="Enter a to-do." value={todoValue} onChange={onChangeTodo} />
+            <input type="text" id="inpTodo" placeholder="Enter a to-do." value={todoValue} onChange={onChangeTodo} />
           </form>
         </div>
       </TodoInpWrap>

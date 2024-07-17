@@ -56,9 +56,12 @@ function BgImgRadio({value, name, defaultChecked, radImg, imgAlt, onChange}: Rad
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   }
+
+  let strIdx = "selBg" + value as unknown as string;
+
   return (
     <Label>
-      <input type="radio" name={name} value={value} defaultChecked={defaultChecked} onChange={handleChange}/>
+      <input type="radio" id={strIdx} name={name} value={value} defaultChecked={defaultChecked} onChange={handleChange}/>
       <span>
         <img src={radImg} alt={imgAlt} />
       </span>

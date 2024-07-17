@@ -150,7 +150,7 @@ const Greeting = ({viewClk, setMeridiem, setSecs, viewGreet, name, getName}: Pro
         <form className="form-name" onSubmit={submitName}>
           {name === '' || inpMode === 'edit' ?
             <InputName className="input-name">
-              <input type="text" value={inpName} placeholder="What's your name?" onChange={getInpVal} />
+              <input type="text" id="inpName" value={inpName} placeholder="What's your name?" onChange={getInpVal} />
             </InputName>
             : 
             <GreetMsg className="greeting-msg">
